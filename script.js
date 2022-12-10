@@ -3,6 +3,23 @@ const liveView = document.getElementById("liveView");
 const demosSection = document.getElementById("demos");
 const enableWebcamButton = document.getElementById("webcamButton");
 
+const enableCam = (e) => {
+    if (!model) {
+      return;
+    }
+  
+    e.target.classList.add("removed");
+  
+    const constraints = {
+      video: true,
+    };
+  
+    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+      video.srcObject = stream;
+      video.addEventListener("loadeddata", predictWebcam);
+    });
+  };
+
 const getUserMediaSupported = () => {
   return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
 };
@@ -13,19 +30,7 @@ if (getUserMediaSupported()) {
   console.warn("getUserMedia() is not supported by your browser");
 }
 
-const enableCam = (e) => {
-  if (!model) {
-    return;
-  }
+const predictWebcam = () => {};
 
-  e.target.classList.add("removed");
-
-  const constraints = {
-    video: true,
-  };
-
-  navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
-    video.srcObject = stream;
-    video.addEventListener("loadeddata", predictWebcam);
-  });
-};
+let model = true;
+demosSection.classList.remove("invisible");
