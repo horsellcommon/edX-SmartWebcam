@@ -48,7 +48,7 @@ const predictWebcam = () => {
         children.splice(0);
 
         for (let n = 0; n < predictions.length; n++){
-            if (predictions[n].score > 0.66) {
+            if (predictions[n].score > 0.70) {
                 const p = document.createElement("p");
                 p.innerText = predictions[n].class + "- with "
                     + Math.round(parseFloat(predictions[n].score) * 100)
@@ -59,7 +59,7 @@ const predictWebcam = () => {
 
                 const highlighter = document.createElement("div");
                 highlighter.setAttribute("class", "highlighter");
-                highlighter.style = "left " + predictions[n].bbox[0] + "px; top: "
+                highlighter.style = "left: " + predictions[n].bbox[0] + "px; top: "
                 + predictions[n].bbox[1] + "px; width: "
                 + predictions[n].bbox[2] + "px; height: "
                 + predictions[n].bbox[3] + "px;";
