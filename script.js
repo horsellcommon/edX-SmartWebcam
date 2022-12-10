@@ -12,3 +12,20 @@ if (getUserMediaSupported()) {
 } else {
   console.warn("getUserMedia() is not supported by your browser");
 }
+
+const enableCam = (e) => {
+  if (!model) {
+    return;
+  }
+
+  e.target.classList.add("removed");
+
+  const constraints = {
+    video: true,
+  };
+
+  navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+    video.srcObject = stream;
+    video.addEventListener("loadeddata", predictWebcam);
+  });
+};
